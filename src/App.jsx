@@ -1,7 +1,8 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import card from "./assets/absorbing-man.jpg";
 import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
+import { Tooltip } from "react-tooltip";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
@@ -15,6 +16,7 @@ function App() {
   return (
     <div className="container">
       <div className="parent">
+        <Tooltip id="my-tooltip" />
         <div class="div1">
           <h1>S</h1>
         </div>
@@ -37,37 +39,48 @@ function App() {
 
         <div className="row">
           <a
-            href="https://vitejs.dev"
-            target="_blank">
-            <img
-              src="/vite.svg"
-              className="logo vite"
-              alt="Vite logo"
-            />
-          </a>
-          <a
-            href="https://tauri.app"
-            target="_blank">
-            <img
-              src="/tauri.svg"
-              className="logo tauri"
-              alt="Tauri logo"
-            />
-          </a>
-          <a
             href="https://reactjs.org"
-            target="_blank">
+            target="_blank"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="Hello world!"
+            style={{ pointer: "cursor" }}>
             <img
-              src={reactLogo}
+              src={card}
               className="logo react"
               alt="React logo"
             />
           </a>
         </div>
-        <h1>Hello world!</h1>
-        <p>Click on the Tauri, Vite, and React logos to learn more.</p>
+        <div className="row">
+          <a
+            href="https://reactjs.org"
+            target="_blank"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="Hello world!"
+            style={{ pointer: "cursor" }}>
+            <img
+              src={card}
+              className="logo react"
+              alt="React logo"
+            />
+          </a>
+        </div>
+        <div className="row">
+          <div
+            href="https://reactjs.org"
+            target="_blank"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="Hello world!"
+            style={{ pointer: "cursor" }}>
+            <img
+              src={card}
+              className="logo react"
+              alt="React logo"
+            />
+          </div>
+        </div>
 
-        <form
+        {/* <form
           className="row"
           onSubmit={(e) => {
             e.preventDefault();
@@ -79,7 +92,7 @@ function App() {
             placeholder="Enter a name..."
           />
           <button type="submit">Greet</button>
-        </form>
+        </form> */}
 
         <p>{greetMsg}</p>
       </div>
