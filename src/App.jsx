@@ -45,6 +45,7 @@ function App() {
               alt="React logo"
             />
           </div>
+          <p>Absorbing Man</p>
         </div>
         <div className="row">
           <div

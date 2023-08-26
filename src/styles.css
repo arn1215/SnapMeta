@@ -132,9 +132,11 @@
 
 .row {
   display: flex;
+  flex-direction: column;
   background-color: #404040;
   justify-content: center;
   align-items: center;
+  color: whitesmoke;
 }
 
 .deckContainer {
