@@ -1,576 +1,85 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import card from "./assets/absorbing-man.jpg";
 import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
 import { Tooltip } from "react-tooltip";
+import { dataArray } from "../array";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
+  const [rowS, setRowS] = useState([]);
+  const [rowA, setRowA] = useState([]);
+  const [rowB, setRowB] = useState([]);
+  const [rowC, setRowC] = useState([]);
   let deck = "Absorbing Man";
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
     setGreetMsg(await invoke("greet", { name }));
   }
 
+  useEffect(() => {
+    dataArray.forEach((deck) => {
+      if (deck.tier === "S") {
+        setRowS((rowS) => [...rowS, deck]);
+      } else if (deck.tier === "A") {
+        setRowA((rowA) => [...rowA, deck]);
+      } else if (deck.tier === "B") {
+        setRowB((rowB) => [...rowB, deck]);
+      } else if (deck.tier === "C") {
+        setRowC((rowC) => [...rowC, deck]);
+      }
+    });
+  }, []);
+
   return (
     <div className="container">
       <div className="parent">
         <Tooltip id="my-tooltip" />
-        <div class="div1">
-          <h1>S</h1>
-        </div>
-        <div class="div3">
-          <h1>A</h1>
-        </div>
-        <div class="div5">
-          <h1>B</h1>
-        </div>
-        <div class="div7">
-          <h1>C</h1>
-        </div>
-        <div class="div9">
-          <h1>D</h1>
-        </div>
-        <div className="row">
+        <div
+          className="flexbox"
+          style={{ display: "flex", flexDirection: "column" }}>
           <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
+            className="row S"
+            style={{ display: "flex", flexDirection: "row" }}>
+            {rowS.map((deck) => (
+              <div className="deck">
+                <div className="deck-name">{deck.name}</div>
+                <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
+              </div>
+            ))}
           </div>
-          <p>Absorbing Man</p>
-        </div>
-        <div className="row">
           <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo tauri"
-              alt="React logo"
-            />
+            className="row A"
+            style={{ display: "flex", flexDirection: "row" }}>
+            {rowA.map((deck) => (
+              <div className="deck">
+                <div className="deck-name">{deck.name}</div>
+                <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
+              </div>
+            ))}
           </div>
-        </div>
-        <div className="row">
           <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo vite"
-              alt="React logo"
-            />
+            className="row B"
+            style={{ display: "flex", flexDirection: "row" }}>
+            {rowB.map((deck) => (
+              <div className="deck">
+                <div className="deck-name">{deck.name}</div>
+                <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
+              </div>
+            ))}
+          </div>
+          <div
+            className="row C"
+            style={{ display: "flex", flexDirection: "row" }}>
+            {rowC.map((deck) => (
+              <div className="deck">
+                <div className="deck-name">{deck.name}</div>
+                <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
+              </div>
+            ))}
           </div>
         </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>{" "}
-        <div className="row">
-          <div
-            href="https://reactjs.org"
-            target="_blank"
-            className="deckContainer"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={deck}
-            style={{ pointer: "cursor" }}>
-            <img
-              src={card}
-              className="logo react"
-              alt="React logo"
-            />
-          </div>
-        </div>
-        {/* <form
-          className="row"
-          onSubmit={(e) => {
-            e.preventDefault();
-            greet();
-          }}>
-          <input
-            id="greet-input"
-            onChange={(e) => setName(e.currentTarget.value)}
-            placeholder="Enter a name..."
-          />
-          <button type="submit">Greet</button>
-        </form> */}
-        <p>{greetMsg}</p>
       </div>
     </div>
   );
