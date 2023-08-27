@@ -1,109 +1,81 @@
 import { useEffect, useState } from "react";
-import card from "./assets/absorbing-man.jpg";
-import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
 import { Tooltip } from "react-tooltip";
 import { dataArray } from "../array";
+import snapMeta from "./assets/7ea38ddff2fb409483bc51b0d11bb6e6.png";
+function Row({ data, header }) {
+  return (
+    <div
+      className="row"
+      style={{ display: "flex", flexDirection: "row" }}>
+      <div className={`tier-header ${header.toLowerCase()}-header`}>
+        {header}
+      </div>
+      {data.map((deck, index) => (
+        <div
+          key={index}
+          className="deck"
+          data-tooltip-id="my-tooltip"
+          data-tooltip-content={deck.name}>
+          <div className="deck-name">{deck.name}</div>
+          <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-  const [rowS, setRowS] = useState([]);
-  const [rowA, setRowA] = useState([]);
-  const [rowB, setRowB] = useState([]);
-  const [rowC, setRowC] = useState([]);
-  let deck = "Absorbing Man";
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  const [rows, setRows] = useState({ S: [], A: [], B: [], C: [] });
+
+  const addToRow = (existingRow, newItem) => {
+    if (
+      !existingRow.some((existingDeck) => existingDeck.name === newItem.name)
+    ) {
+      return [...existingRow, newItem];
+    }
+    return existingRow;
+  };
 
   useEffect(() => {
     dataArray.forEach((deck) => {
-      if (deck.tier === "S") {
-        setRowS((rowS) => [...rowS, deck]);
-      } else if (deck.tier === "A") {
-        setRowA((rowA) => [...rowA, deck]);
-      } else if (deck.tier === "B") {
-        setRowB((rowB) => [...rowB, deck]);
-      } else if (deck.tier === "C") {
-        setRowC((rowC) => {
-          if (!rowC.some((existingDeck) => existingDeck.name === deck.name)) {
-            return [...rowC, deck];
-          }
-          return rowC;
-        });
+      const tier = deck.tier;
+      if (["S", "A", "B", "C"].includes(tier)) {
+        setRows((prevRows) => ({
+          ...prevRows,
+          [tier]: addToRow(prevRows[tier], deck),
+        }));
       }
     });
-    console.log(rowC);
-    console.log(dataArray);
-  }, [dataArray]);
+  }, []);
 
   return (
-    <div className="container">
-      <div className="parent">
-        <div
-          className="flexbox"
-          style={{ display: "flex", flexDirection: "column" }}>
+    <>
+      <img
+        src={snapMeta}
+        alt="Logo"
+      />
+      <div className="container">
+        <Tooltip
+          id="my-tooltip"
+          effect="solid"
+          place="bottom"
+        />
+        <div className="parent">
           <div
-            className="row S"
-            style={{ display: "flex", flexDirection: "row" }}>
-            <div className="tier-header s-header">S</div>
-            {rowS.map((deck) => (
-              <div
-                className="deck"
-                data-tooltip-id="my-tooltip"
-                data-tooltip-content={deck.name}>
-                <div className="deck-name">{deck.name}</div>
-                <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
-              </div>
-            ))}
-          </div>
-          <div
-            className="row A"
-            style={{ display: "flex", flexDirection: "row" }}>
-            <div className="tier-header a-header">A</div>
-            {rowA.map((deck) => (
-              <div
-                className="deck"
-                data-tooltip-id="my-tooltip"
-                data-tooltip-content={deck.name}>
-                <div className="deck-name">{deck.name}</div>
-                <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
-              </div>
-            ))}
-          </div>
-          <div
-            className="row B"
-            style={{ display: "flex", flexDirection: "row" }}>
-            <div className="tier-header b-header">B</div>
-            {rowB.map((deck) => (
-              <div
-                className="deck"
-                data-tooltip-id="my-tooltip"
-                data-tooltip-content={deck.name}>
-                <div className="deck-name">{deck.name}</div>
-                <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
-              </div>
-            ))}
-          </div>
-          <div
-            className="row C"
-            style={{ display: "flex", flexDirection: "row" }}>
-            <div className="tier-header c-header">C</div>
-            {rowC.map((deck) => (
-              <div
-                className="deck"
-                data-tooltip-id="my-tooltip"
-                data-tooltip-content={deck.name}>
-                <div className="deck-name">{deck.name}</div>
-                <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
-              </div>
+            className="flexbox"
+            style={{ display: "flex", flexDirection: "column" }}>
+            {Object.keys(rows).map((tier) => (
+              <Row
+                key={tier}
+                header={tier}
+                data={rows[tier]}
+              />
             ))}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
