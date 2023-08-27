@@ -29,12 +29,54 @@
   height: 100vh;
 }
 
-.row {
-  border: 1px solid red;
-  max-height: 60vh;
-  min-height: 20vh;
+.parent {
   display: flex;
   flex-direction: row;
+}
+
+.tier-header-container {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+}
+
+.tier-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-height: 100%;
+  min-height: 100%;
+  font-size: 3em;
+  margin: 5px;
+  min-width: 10vw;
+  max-width: 10vw;
+}
+
+.s-header {
+  background-color: rgb(255, 78, 78);
+  border-radius: 7px;
+}
+
+.a-header {
+  background-color: rgb(255, 132, 66);
+  border-radius: 7px;
+}
+
+.b-header {
+  background-color: rgb(255, 228, 75);
+  border-radius: 7px;
+}
+
+.c-header {
+  background-color: rgb(80, 255, 94);
+  border-radius: 7px;
+}
+
+
+.deck {
+  padding: 10px;
 }
 
 .deck-details {
@@ -63,15 +105,17 @@
 
 .row {
   display: flex;
-  flex-direction: column;
-  background-color: #404040;
-  justify-content: center;
+  background-color: #3b3b3b;
+  justify-content: start;
   align-items: center;
   color: whitesmoke;
-}
-
-.deckContainer {
-  cursor: pointer;
+  border-radius: 7px;
+  max-height: vh;
+  min-height: 20vh;
+  flex-direction: row;
+  overflow-wrap: break-word;
+  margin: 5px;
+  min-width: 90vw;
 }
 
 a {

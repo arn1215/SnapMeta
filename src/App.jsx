@@ -27,23 +27,33 @@ function App() {
       } else if (deck.tier === "B") {
         setRowB((rowB) => [...rowB, deck]);
       } else if (deck.tier === "C") {
-        setRowC((rowC) => [...rowC, deck]);
+        setRowC((rowC) => {
+          if (!rowC.some((existingDeck) => existingDeck.name === deck.name)) {
+            return [...rowC, deck];
+          }
+          return rowC;
+        });
       }
     });
-  }, []);
+    console.log(rowC);
+    console.log(dataArray);
+  }, [dataArray]);
 
   return (
     <div className="container">
       <div className="parent">
-        <Tooltip id="my-tooltip" />
         <div
           className="flexbox"
           style={{ display: "flex", flexDirection: "column" }}>
           <div
             className="row S"
             style={{ display: "flex", flexDirection: "row" }}>
+            <div className="tier-header s-header">S</div>
             {rowS.map((deck) => (
-              <div className="deck">
+              <div
+                className="deck"
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content={deck.name}>
                 <div className="deck-name">{deck.name}</div>
                 <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
               </div>
@@ -52,8 +62,12 @@ function App() {
           <div
             className="row A"
             style={{ display: "flex", flexDirection: "row" }}>
+            <div className="tier-header a-header">A</div>
             {rowA.map((deck) => (
-              <div className="deck">
+              <div
+                className="deck"
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content={deck.name}>
                 <div className="deck-name">{deck.name}</div>
                 <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
               </div>
@@ -62,8 +76,12 @@ function App() {
           <div
             className="row B"
             style={{ display: "flex", flexDirection: "row" }}>
+            <div className="tier-header b-header">B</div>
             {rowB.map((deck) => (
-              <div className="deck">
+              <div
+                className="deck"
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content={deck.name}>
                 <div className="deck-name">{deck.name}</div>
                 <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
               </div>
@@ -72,8 +90,12 @@ function App() {
           <div
             className="row C"
             style={{ display: "flex", flexDirection: "row" }}>
+            <div className="tier-header c-header">C</div>
             {rowC.map((deck) => (
-              <div className="deck">
+              <div
+                className="deck"
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content={deck.name}>
                 <div className="deck-name">{deck.name}</div>
                 <div className="deck-tier">{deck.tierScore.toFixed(2)}</div>
               </div>
